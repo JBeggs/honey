@@ -1,10 +1,13 @@
 # Honey & Related Products (Template 2)
 
-Next.js 16 storefront for **PLAN-02-HONEY.md**. Forked from `wire-and-bead` with Honey themes (Farm-to-Jar / Premium Natural / Bee Edu), port **3003** (3002 is used by `plant-sanctuary` in this monorepo), default company slug `honey`.
+Source repo: [github.com/JBeggs/honey](https://github.com/JBeggs/honey) (`git@github.com:JBeggs/honey.git`).
+
+Next.js 16 storefront for **PLAN-02-HONEY.md**. Forked from `wire-and-bead` with Honey themes (Farm-to-Jar / Premium Natural / Bee Edu). Dev server uses port **3003** (avoids clashing with other local storefronts, e.g. `plant-sanctuary` on 3002). Default company slug: **`honey`**.
 
 ## Quick start
 
 ```bash
+git clone https://github.com/JBeggs/honey.git
 cd honey
 npm install
 cp .env.example .env.local

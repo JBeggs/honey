@@ -294,7 +294,7 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
               ? 'bg-slate-700'
               : hasCategory
                 ? 'bg-vintage-primary'
-                : 'bg-gradient-to-r from-vintage-primary to-modern-primary'
+                : 'products-header-gradient'
 
   return (
     <div className="min-h-screen bg-vintage-background" data-cy="products-section">

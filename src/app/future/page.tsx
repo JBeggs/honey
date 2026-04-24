@@ -22,13 +22,13 @@ export default async function FuturePage() {
   return (
     <div className="min-h-screen bg-amber-50/30">
       {/* Page Header */}
-      <section className="py-12 bg-gradient-to-r from-modern-primary to-modern-primary-dark text-white">
+      <section className="py-12 brand-gradient-band">
         <div className="container-wide">
-          <h1 className="text-3xl md:text-4xl font-bold font-playfair mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold font-playfair mb-2 text-on-dark">
             Future Plans
           </h1>
-          <p className="text-lg text-blue-100">
-            IoT development, projects to build, camera setups, home garden monitoring, and more
+          <p className="text-lg text-on-dark-muted">
+            Roadmap notes, seasonal releases, and what we&rsquo;re building next.
           </p>
         </div>
       </section>

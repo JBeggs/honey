@@ -27,17 +27,10 @@ export default function PageHeroView({ hero }: { hero: PageHero }) {
           className="absolute inset-0"
           imgClassName="object-cover"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(135deg, rgb(var(--color-primary) / 0.85) 0%, rgb(var(--color-primary) / 0.55) 45%, rgb(var(--color-accent) / 0.55) 100%)',
-          }}
-          aria-hidden
-        />
+        <div className="absolute inset-0 hero-gradient-overlay" aria-hidden />
       </div>
 
-      <div className="relative container-wide py-24 md:py-32 text-[rgb(var(--color-text-inverse))]">
+      <div className="relative container-wide py-24 md:py-32 text-on-dark">
         <div className="max-w-2xl">
           {hero.title && (
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4">
@@ -45,7 +38,7 @@ export default function PageHeroView({ hero }: { hero: PageHero }) {
             </h1>
           )}
           {hero.subtitle && (
-            <p className="text-lg md:text-xl opacity-95 mb-8 max-w-xl">
+            <p className="text-lg md:text-xl text-on-dark-muted mb-8 max-w-xl">
               {hero.subtitle}
             </p>
           )}

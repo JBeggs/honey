@@ -55,14 +55,14 @@ export default async function AboutPage() {
       <PageHero pageSlug="about" fallback={null} />
 
       {/* Hero */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-vintage-primary to-vintage-primary-dark text-white">
+      <section className="py-16 md:py-20 brand-gradient-band">
         <div className="container-wide">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-playfair mb-6 text-on-dark">
               Our Story
             </h1>
-            <p className="text-xl text-green-100">
-              Where the charm of yesterday meets the convenience of today
+            <p className="text-xl text-on-dark-muted">
+              Craft, transparency, and care in every jar — from hive to home.
             </p>
           </div>
         </div>

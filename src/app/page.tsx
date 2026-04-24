@@ -48,27 +48,20 @@ function DefaultHomeHero({ company }: { company: Company }) {
           className="absolute inset-0"
           imgClassName="object-cover"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(135deg, rgb(var(--color-primary) / 0.85) 0%, rgb(var(--color-primary) / 0.55) 45%, rgb(var(--color-accent) / 0.55) 100%)',
-          }}
-          aria-hidden
-        />
+        <div className="absolute inset-0 hero-gradient-overlay" aria-hidden />
       </div>
 
-      <div className="relative container-wide py-24 md:py-32 text-[rgb(var(--color-text-inverse))]">
+      <div className="relative container-wide py-24 md:py-32 text-on-dark">
         <div className="max-w-2xl">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading mb-4">
             {company.name}
           </h1>
           {company.tagline && (
-            <p className="text-base md:text-lg uppercase tracking-[0.25em] opacity-90 mb-6">
+            <p className="text-base md:text-lg uppercase tracking-[0.25em] text-on-dark-muted mb-6">
               {company.tagline}
             </p>
           )}
-          <p className="text-lg md:text-xl opacity-95 mb-8 max-w-xl">
+          <p className="text-lg md:text-xl text-on-dark-muted mb-8 max-w-xl">
             {company.description}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -81,7 +74,7 @@ function DefaultHomeHero({ company }: { company: Company }) {
             </Link>
             <Link
               href="/about"
-              className="btn btn-secondary text-base px-6 py-3"
+              className="btn btn-secondary-on-dark text-base px-6 py-3"
             >
               Our Story
             </Link>
@@ -141,18 +134,12 @@ export default async function HomePage() {
       </section>
 
       {/* CTA */}
-      <section
-        className="py-16 text-[rgb(var(--color-text-inverse))]"
-        style={{
-          background:
-            'linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(var(--color-accent)) 100%)',
-        }}
-      >
+      <section className="py-16 brand-gradient-band">
         <div className="container-wide text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-on-dark">
             Join the {company.name} community
           </h2>
-          <p className="text-lg opacity-95 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-on-dark-muted mb-8 max-w-2xl mx-auto">
             Sign up to be first to know about new arrivals, restocks, and exclusive offers.
           </p>
           <Link href="/register" className="btn btn-accent text-lg px-8 py-3">

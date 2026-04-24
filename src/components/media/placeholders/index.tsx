@@ -65,9 +65,8 @@ export function LogoPlaceholder({ monogram = 'S', label, className }: Placeholde
         aria-hidden
         className="flex h-full w-full items-center justify-center"
         style={{
-          background:
-            'linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(var(--color-accent)) 100%)',
-          color: 'rgb(var(--color-text-inverse))',
+          background: 'var(--brand-band-gradient)',
+          color: 'rgb(var(--color-on-dark-surface))',
           fontFamily: 'var(--font-heading)',
           fontWeight: 700,
           fontSize: 'clamp(1rem, 3vw, 2.5rem)',
@@ -87,11 +86,10 @@ export function HeroPlaceholder({ label, className }: PlaceholderProps) {
         aria-hidden
         className="absolute inset-0"
         style={{
-          background:
-            'linear-gradient(135deg, rgb(var(--color-primary) / 0.85) 0%, rgb(var(--color-accent) / 0.85) 100%)',
+          background: 'var(--hero-overlay-gradient)',
         }}
       />
-      <div className="relative flex flex-col items-center gap-2 text-[rgb(var(--color-text-inverse))]">
+      <div className="relative flex flex-col items-center gap-2 text-on-dark">
         <Sparkles className="h-10 w-10" strokeWidth={1.5} />
         <span className="font-heading text-sm uppercase tracking-[0.2em]">
           Your hero image

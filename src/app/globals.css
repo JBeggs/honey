@@ -33,6 +33,17 @@
   --color-border: 235 221 184;
   --color-ring: 212 160 23;
 
+  /* Rich scrims / bands (readable type; photo still reads through hero overlay) */
+  --hero-overlay-gradient: linear-gradient(
+    135deg,
+    rgb(42 28 24 / 0.9) 0%,
+    rgb(130 88 26 / 0.58) 38%,
+    rgb(68 90 38 / 0.74) 100%
+  );
+  --brand-band-gradient: linear-gradient(135deg, rgb(92 58 20) 0%, rgb(62 82 34) 100%);
+  --color-on-dark-surface: 255 253 248;
+  --color-primary-fg: 255 253 248;
+
   --font-heading: var(--font-playfair), "Playfair Display", Georgia, serif;
   --font-body: var(--font-inter), Inter, system-ui, sans-serif;
 
@@ -55,6 +66,16 @@
   --color-border: 226 219 209;
   --color-ring: 198 156 63;
 
+  --hero-overlay-gradient: linear-gradient(
+    135deg,
+    rgb(36 34 32 / 0.88) 0%,
+    rgb(108 85 48 / 0.52) 42%,
+    rgb(56 62 56 / 0.74) 100%
+  );
+  --brand-band-gradient: linear-gradient(135deg, rgb(78 62 42) 0%, rgb(44 48 44) 100%);
+  --color-on-dark-surface: 252 250 247;
+  --color-primary-fg: 252 250 247;
+
   --font-heading: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-body: var(--font-inter), Inter, system-ui, sans-serif;
 
@@ -76,14 +97,26 @@
   --color-surface-raised: 255 253 240;
   --color-text: 27 27 27;
   --color-text-muted: 85 85 85;
-  /* Dark text on yellow primary (PLAN-02 Bee Edu) — readable CTAs */
-  --color-text-inverse: 27 27 27;
+  /* Inverse for dark surfaces (accent buttons, overlays); primary buttons use --color-primary-fg */
+  --color-text-inverse: 255 255 255;
   --color-primary: 255 193 7;
   --color-primary-hover: 230 170 0;
   --color-secondary: 46 125 50;
   --color-accent: 33 33 33;
   --color-border: 238 238 238;
   --color-ring: 46 125 50;
+
+  /* Deep scrim so hero/bands stay legible (avoids washed yellow overlays) */
+  --hero-overlay-gradient: linear-gradient(
+    135deg,
+    rgb(26 38 26 / 0.92) 0%,
+    rgb(125 88 16 / 0.5) 46%,
+    rgb(24 88 40 / 0.8) 100%
+  );
+  --brand-band-gradient: linear-gradient(135deg, rgb(30 92 42) 0%, rgb(148 108 18) 100%);
+  --color-on-dark-surface: 255 252 245;
+  /* Solid amber CTA: dark type for contrast */
+  --color-primary-fg: 28 32 28;
 
   --font-heading: var(--font-nunito), Nunito, system-ui, sans-serif;
   --font-body: var(--font-nunito), Nunito, system-ui, sans-serif;
@@ -118,6 +151,52 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+}
+
+/* ============================================================
+   Marketing surfaces (hero overlay, bands, on-dark type)
+   ============================================================ */
+.hero-gradient-overlay {
+  background: var(--hero-overlay-gradient);
+}
+
+.brand-gradient-band {
+  background: var(--brand-band-gradient);
+  color: rgb(var(--color-on-dark-surface));
+}
+
+.text-on-dark {
+  color: rgb(var(--color-on-dark-surface));
+}
+
+.text-on-dark-muted {
+  color: rgb(var(--color-on-dark-surface) / 0.9);
+}
+
+.brand-icon-tile {
+  background: var(--brand-band-gradient);
+  color: rgb(var(--color-on-dark-surface));
+}
+
+.products-header-gradient {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--color-primary-hover)) 0%,
+    rgb(var(--color-secondary)) 100%
+  );
+  color: rgb(var(--color-on-dark-surface));
+}
+
+.btn-secondary-on-dark {
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent;
+  border-radius: var(--radius-button);
+  background-color: rgb(255 255 255 / 0.14);
+  color: rgb(var(--color-on-dark-surface));
+  border: 1px solid rgb(255 255 255 / 0.38);
+  --tw-ring-color: rgb(255 255 255 / 0.45);
+}
+.btn-secondary-on-dark:hover {
+  background-color: rgb(255 255 255 / 0.22);
 }
 
 /* ============================================================
@@ -166,7 +245,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn-primary {
   background-color: rgb(var(--color-primary));
-  color: rgb(var(--color-text-inverse));
+  color: rgb(var(--color-primary-fg));
 }
 .btn-primary:hover { background-color: rgb(var(--color-primary-hover)); }
 .btn-primary:focus { --tw-ring-color: rgb(var(--color-ring)); }

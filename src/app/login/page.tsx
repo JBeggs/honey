@@ -50,8 +50,8 @@ export default function LoginPage() {
         <div className="bg-white p-8 rounded-xl shadow-xl border border-vintage-primary/10">
           <div className="text-center mb-10">
             <Link href="/" className="inline-block group transition-transform hover:scale-105 duration-300">
-              <div className="w-20 h-20 bg-gradient-to-br from-vintage-primary to-vintage-primary-dark rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-vintage-primary/20 group-hover:shadow-vintage-primary/30 transition-shadow">
-                <User className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 brand-icon-tile rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-black/15 group-hover:shadow-black/25 transition-shadow">
+                <User className="w-10 h-10 text-[rgb(var(--color-on-dark-surface))]" />
               </div>
             </Link>
             <h1 className="text-3xl font-bold font-playfair text-text tracking-tight">Welcome Back</h1>
