@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Honey">
+  <defs>
+    <linearGradient id="hcell512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffe082"/>
+      <stop offset="100%" style="stop-color:#ff8f00"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#1b5e20"/>
+  <path
+    fill="url(#hcell512)"
+    stroke="#2e7d32"
+    stroke-width="14.4"
+    d="M256 83.2L387.2 160v156.8L256 384l-128-67.2V160L256 83.2z"
+  />
+  <path
+    fill="#ffc107"
+    d="M227.2 360c6.4 35.2 19.2 67.2 28.8 81.6 9.6 14.4 22.4 14.4 32 0 9.6-14.4 22.4-46.4 28.8-81.6 4.8-25.6-6.4-44.8-28.8-52.8-22.4 8-33.6 27.2-28.8 52.8z"
+  />
+</svg>
