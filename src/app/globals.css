@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile / iOS + Android baseline — input zoom, tap highlight, safe-area hooks */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+a,
+button,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+.safe-px {
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+.safe-pb {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+.safe-pt {
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+
+/* Shared semantic tokens — same hue on every theme swap */
+:root {
+  --color-danger: 185 28 28;
+}
+
 /* ============================================================
    Theme tokens
    ------------------------------------------------------------
@@ -30,6 +71,8 @@
   --color-primary-hover: 184 130 18;
   --color-secondary: 139 105 20;
   --color-accent: 107 142 35;
+  /* Readable label on saturated accent fills (badges, .btn-accent) */
+  --color-on-accent: 255 255 255;
   --color-border: 235 221 184;
   --color-ring: 212 160 23;
 
@@ -63,6 +106,7 @@
   --color-primary-hover: 168 128 48;
   --color-secondary: 95 113 97;
   --color-accent: 44 44 44;
+  --color-on-accent: 255 255 255;
   --color-border: 226 219 209;
   --color-ring: 198 156 63;
 
@@ -103,6 +147,7 @@
   --color-primary-hover: 230 170 0;
   --color-secondary: 46 125 50;
   --color-accent: 33 33 33;
+  --color-on-accent: 255 255 255;
   --color-border: 238 238 238;
   --color-ring: 46 125 50;
 
@@ -250,6 +295,19 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary:hover { background-color: rgb(var(--color-primary-hover)); }
 .btn-primary:focus { --tw-ring-color: rgb(var(--color-ring)); }
 
+.btn-danger {
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  border-radius: var(--radius-button);
+  background-color: rgb(var(--color-danger));
+  color: rgb(var(--color-text-inverse));
+}
+.btn-danger:hover {
+  filter: brightness(1.06);
+}
+.btn-danger:focus {
+  --tw-ring-color: rgb(var(--color-danger) / 0.45);
+}
+
 .btn-secondary {
   background-color: rgb(var(--color-surface-raised));
   color: rgb(var(--color-text));
@@ -259,9 +317,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-accent {
   background-color: rgb(var(--color-accent));
-  color: rgb(var(--color-text-inverse));
+  color: rgb(var(--color-on-accent));
 }
-.btn-accent:hover { filter: brightness(0.92); }
+.btn-accent:hover {
+  filter: brightness(0.94);
+}
 
 .btn-modern {
   background-color: rgb(var(--color-secondary));
@@ -365,7 +425,7 @@ input:-webkit-autofill:active {
 }
 
 .form-label { @apply block text-sm font-medium text-text mb-1; }
-.form-error { color: rgb(var(--color-accent)); @apply text-sm mt-1; }
+.form-error { color: rgb(var(--color-danger)); @apply text-sm mt-1; }
 
 /* Dividers */
 .divider { border-top: 1px solid rgb(var(--color-border)); }
