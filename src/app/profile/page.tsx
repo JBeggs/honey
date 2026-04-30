@@ -56,6 +56,7 @@ export default function ProfilePage() {
   const [company, setCompany] = useState<Record<string, any> | null>(null)
   const [companyForm, setCompanyForm] = useState({
     logo: '',
+    email: '',
     phone: '',
     website: '',
     address_street: '',
@@ -203,6 +204,7 @@ export default function ProfilePage() {
         setCompany(c)
         setCompanyForm({
           logo: c?.logo?.file_url || c?.logo_url || '',
+          email: c?.email || '',
           phone: c?.phone || '',
           website: c?.website || '',
           address_street: c?.address_street || '',
@@ -283,6 +285,7 @@ export default function ProfilePage() {
     setUpdatingCompany(true)
     try {
       const updated = await ecommerceApi.companies.update(companyId, {
+        email: companyForm.email.trim(),
         phone: companyForm.phone || '',
         website: companyForm.website || '',
         address_street: companyForm.address_street || '',
@@ -746,6 +749,19 @@ export default function ProfilePage() {
                           )}
                         </div>
                         <p className="text-xs text-text-muted mt-1">Click to upload an image</p>
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold uppercase tracking-widest text-text-muted">Contact email</label>
+                        <input
+                          type="email"
+                          autoComplete="email"
+                          value={companyForm.email}
+                          onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })}
+                          className="form-input"
+                          placeholder="hello@yourstore.com"
+                          required
+                        />
+                        <p className="text-xs text-text-muted">Public storefront contact — separate from your account/login email</p>
                       </div>
                       <div className="space-y-1">
                         <label className="text-xs font-bold uppercase tracking-widest text-text-muted">Phone</label>
