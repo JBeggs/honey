@@ -1,19 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Honey">
-  <defs>
-    <linearGradient id="hcell512" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ffe082"/>
-      <stop offset="100%" style="stop-color:#ff8f00"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="112" fill="#1b5e20"/>
-  <path
-    fill="url(#hcell512)"
-    stroke="#2e7d32"
-    stroke-width="14.4"
-    d="M256 83.2L387.2 160v156.8L256 384l-128-67.2V160L256 83.2z"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="">
+  <rect width="512" height="512" fill="#1a4a2e" rx="112"/>
+  <!-- Pointy-top hex outline (honeycomb cell) -->
+  <polygon
+    points="256,83 373,150.5 373,285.5 256,353 139,285.5 139,150.5"
+    fill="none"
+    stroke="#d4a017"
+    stroke-width="24"
+    stroke-linejoin="round"
   />
+  <!-- Candle body -->
+  <rect x="226" y="200" width="60" height="118" rx="8" fill="#d4a017"/>
+  <!-- Flame -->
   <path
-    fill="#ffc107"
-    d="M227.2 360c6.4 35.2 19.2 67.2 28.8 81.6 9.6 14.4 22.4 14.4 32 0 9.6-14.4 22.4-46.4 28.8-81.6 4.8-25.6-6.4-44.8-28.8-52.8-22.4 8-33.6 27.2-28.8 52.8z"
+    d="M 256 200 C 248 175 235 160 220 168 C 232 178 242 188 256 200 C 270 188 280 178 292 168 C 277 160 264 175 256 200 Z"
+    fill="#d4a017"
+  />
+  <!-- Honey drip -->
+  <path
+    d="M 256 353 C 256 368 248 388 230 402 C 256 396 282 388 282 368 C 282 355 268 353 256 353 Z"
+    fill="#d4a017"
   />
 </svg>
