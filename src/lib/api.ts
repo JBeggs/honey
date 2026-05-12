@@ -555,6 +555,32 @@ export const authApi = {
     apiClient.setRefreshToken(null)
     apiClient.setCompanyId(null)
   },
+
+  async requestPasswordReset(email: string) {
+    return apiClient.post<{ detail: string }>(
+      '/auth/password-reset/request/',
+      { email: email.trim() },
+      false,
+    )
+  },
+
+  async confirmPasswordReset(payload: {
+    uid: string
+    token: string
+    new_password: string
+    new_password_confirm: string
+  }) {
+    return apiClient.post<{ detail: string }>(
+      '/auth/password-reset/confirm/',
+      {
+        uid: payload.uid.trim(),
+        token: payload.token.trim(),
+        new_password: payload.new_password,
+        new_password_confirm: payload.new_password_confirm,
+      },
+      false,
+    )
+  },
 }
 
 // News/Articles API methods
