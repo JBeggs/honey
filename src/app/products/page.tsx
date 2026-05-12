@@ -73,7 +73,11 @@ async function getStorefrontCategories(): Promise<StorefrontCategory[]> {
         const slug = raw || storefrontCategorySlugFromName(c.name)
         return { id: String(c.id), name: c.name, slug }
       })
-      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }))
+      .sort((a, b) => {
+        const byName = a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+        if (byName !== 0) return byName
+        return a.slug.localeCompare(b.slug, undefined, { sensitivity: 'base' })
+      })
   } catch (error) {
     console.error('Error fetching storefront categories:', error)
     return []
