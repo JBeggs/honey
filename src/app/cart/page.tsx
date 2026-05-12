@@ -374,7 +374,7 @@ export default function CartPage() {
                 const hasWeightCost = weightBasedEntry && (weightBasedEntry.total_weight_kg ?? 0) > 0 && (weightBasedEntry.delivery_cost ?? 0) > 0
                 const showGroupHeader = group.isImport || deliveryCost > 0 || showBelowThreshold || hasWeightCost
                 const headerLabel = deliveryCost > 0
-                  ? `Our supplier has a flat delivery rate for these products (R${deliveryCost.toFixed(2)})`
+                  ? `We have a flat delivery rate for these products (R${deliveryCost.toFixed(2)})`
                   : 'This delivery group has a free-delivery threshold'
 
                 return (
@@ -407,7 +407,7 @@ export default function CartPage() {
                           )}
                           {deliveryCost > 0 && group.slug !== OTHER_GROUP && !showBelowThreshold && (
                             <Link href={getDeliveryGroupUrl(group.slug)} className="supplier-group-link">
-                              Browse more products from this supplier
+                              Browse more products in this delivery group
                             </Link>
                           )}
                         </>
