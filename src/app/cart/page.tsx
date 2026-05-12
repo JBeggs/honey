@@ -365,11 +365,21 @@ export default function CartPage() {
                 const weightBasedEntry = groupBreakdown.find((e) => e.weight_based === true)
                 const primaryDeliveryEntry = groupBreakdown.find((e) => Number(e.delivery_cost ?? 0) > 0)
                 const deliveryCost = getDeliveryCostFromBreakdown(group.slug)
+                const hasBreakdownEntries = groupBreakdown.length > 0
                 const breakdownThresholdMet = groupBreakdown.some((e) => e.threshold_met === true)
-                const breakdownAmountToFree = groupBreakdown.find((e) => (e.amount_to_free_delivery ?? 0) > 0)?.amount_to_free_delivery
-                const thresholdMet = breakdownThresholdMet || (group.threshold != null && !group.belowThreshold)
-                const amountToFree = breakdownAmountToFree ?? group.amountToFreeDelivery ?? 0
-                const showBelowThreshold = !thresholdMet && (amountToFree > 0 || group.belowThreshold)
+                const breakdownAmountToFreePositive = groupBreakdown.find(
+                  (e) => (e.amount_to_free_delivery ?? 0) > 0,
+                )?.amount_to_free_delivery
+                const thresholdMet =
+                  breakdownThresholdMet ||
+                  (!hasBreakdownEntries && group.threshold != null && !group.belowThreshold)
+                // When the API returns rows for this slug, trust it for the upsell amount only.
+                // Client-side groupCartItems can still see stale free_delivery_threshold on lines
+                // after products were switched to flat-only — checkout already uses breakdown only.
+                const amountToFree = hasBreakdownEntries
+                  ? Number(breakdownAmountToFreePositive ?? 0)
+                  : Number(group.amountToFreeDelivery ?? 0)
+                const showBelowThreshold = !thresholdMet && amountToFree > 0
                 const thresholdUnavailable = (group as { thresholdUnavailable?: boolean }).thresholdUnavailable === true
                 const hasWeightCost = weightBasedEntry && (weightBasedEntry.total_weight_kg ?? 0) > 0 && (weightBasedEntry.delivery_cost ?? 0) > 0
                 const showGroupHeader = group.isImport || deliveryCost > 0 || showBelowThreshold || hasWeightCost
@@ -389,7 +399,7 @@ export default function CartPage() {
                       ) : (
                         <>
                           <h3 className="cart-supplier-header">{headerLabel}</h3>
-                          {showBelowThreshold && group.threshold != null && (
+                          {showBelowThreshold && (
                             <>
                               {thresholdUnavailable ? (
                                 <p className="supplier-threshold-note text-amber-700">
