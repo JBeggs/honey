@@ -550,12 +550,6 @@ export const authApi = {
     return response
   },
 
-  logout() {
-    apiClient.setToken(null)
-    apiClient.setRefreshToken(null)
-    apiClient.setCompanyId(null)
-  },
-
   async requestPasswordReset(email: string) {
     return apiClient.post<{ detail: string }>(
       '/auth/password-reset/request/',
@@ -580,6 +574,79 @@ export const authApi = {
       },
       false,
     )
+  },
+
+  async verifyEmail(token: string) {
+    const response = await apiClient.post<{
+      access: string
+      refresh: string
+      user: Record<string, unknown>
+      company?: { id: string; name?: string }
+      profile?: Record<string, unknown>
+    }>('/auth/verify-email/', { token: token.trim() }, false)
+    if (response.access) {
+      apiClient.setToken(response.access)
+      if (response.refresh) apiClient.setRefreshToken(response.refresh)
+      const cid = response.company?.id
+      if (cid) apiClient.setCompanyId(cid)
+    }
+    return response
+  },
+
+  async confirmEmailChange(token: string) {
+    const response = await apiClient.post<{
+      access: string
+      refresh: string
+      user: Record<string, unknown>
+      company?: { id: string; name?: string }
+      profile?: Record<string, unknown>
+    }>('/auth/confirm-email-change/', { token: token.trim() }, false)
+    if (response.access) {
+      apiClient.setToken(response.access)
+      if (response.refresh) apiClient.setRefreshToken(response.refresh)
+      const cid = response.company?.id
+      if (cid) apiClient.setCompanyId(cid)
+    }
+    return response
+  },
+
+  async magicLinkRequest(email: string) {
+    return apiClient.post<{ detail: string }>(
+      '/auth/magic-link/request/',
+      { email: email.trim().toLowerCase() },
+      false,
+    )
+  },
+
+  async magicLinkConsume(token: string) {
+    const response = await apiClient.post<{
+      access: string
+      refresh: string
+      user: Record<string, unknown>
+      company?: { id: string; name?: string }
+      profile?: Record<string, unknown>
+    }>('/auth/magic-link/consume/', { token: token.trim() }, false)
+    if (response.access) {
+      apiClient.setToken(response.access)
+      if (response.refresh) apiClient.setRefreshToken(response.refresh)
+      const cid = response.company?.id
+      if (cid) apiClient.setCompanyId(cid)
+    }
+    return response
+  },
+
+  async resendVerificationEmail(email: string) {
+    return apiClient.post<{ detail: string }>(
+      '/auth/resend-verification/',
+      { email: email.trim().toLowerCase() },
+      false,
+    )
+  },
+
+  logout() {
+    apiClient.setToken(null)
+    apiClient.setRefreshToken(null)
+    apiClient.setCompanyId(null)
   },
 }
 
