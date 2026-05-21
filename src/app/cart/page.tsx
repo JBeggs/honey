@@ -10,7 +10,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { ShoppingCart, Trash2, Plus, Minus, ArrowRight, Clock, Sparkles, Package, TimerReset, Truck, Shield } from 'lucide-react'
 import { formatCartCountdown, getCartItemImages, getCartItemKey, getItemMinQuantity, getItemStockQuantity, groupCartItems, normalizeCartResponse, OTHER_GROUP } from '@/lib/cart-utils'
 import { isBundleProduct } from '@/lib/product-utils'
-import { getProductBundleImages } from '@/lib/image-utils'
+import { getProductCardImages } from '@/lib/image-utils'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
 
 const DELIVERY_GROUP_STORAGE_KEY = 'deliveryGroupMapV1'
@@ -142,9 +142,9 @@ export default function CartPage() {
               if (!productId) return item
               const productResponse = await ecommerceApi.products.get(String(productId)) as any
               const product = productResponse?.data ?? productResponse
-              const images = getProductBundleImages(product)
+              const images = getProductCardImages(product)
               if (images.length > 0) {
-                return { ...item, bundle_images: images, product: { ...(item.product || {}), image: product?.image || item.product?.image } as any }
+                return { ...item, bundle_images: images, product: { ...(item.product || {}), ...product, image: product?.image || item.product?.image } as any }
               }
             } catch {
               // Ignore enrichment failures and keep original item.
@@ -365,26 +365,16 @@ export default function CartPage() {
                 const weightBasedEntry = groupBreakdown.find((e) => e.weight_based === true)
                 const primaryDeliveryEntry = groupBreakdown.find((e) => Number(e.delivery_cost ?? 0) > 0)
                 const deliveryCost = getDeliveryCostFromBreakdown(group.slug)
-                const hasBreakdownEntries = groupBreakdown.length > 0
                 const breakdownThresholdMet = groupBreakdown.some((e) => e.threshold_met === true)
-                const breakdownAmountToFreePositive = groupBreakdown.find(
-                  (e) => (e.amount_to_free_delivery ?? 0) > 0,
-                )?.amount_to_free_delivery
-                const thresholdMet =
-                  breakdownThresholdMet ||
-                  (!hasBreakdownEntries && group.threshold != null && !group.belowThreshold)
-                // When the API returns rows for this slug, trust it for the upsell amount only.
-                // Client-side groupCartItems can still see stale free_delivery_threshold on lines
-                // after products were switched to flat-only — checkout already uses breakdown only.
-                const amountToFree = hasBreakdownEntries
-                  ? Number(breakdownAmountToFreePositive ?? 0)
-                  : Number(group.amountToFreeDelivery ?? 0)
-                const showBelowThreshold = !thresholdMet && amountToFree > 0
+                const breakdownAmountToFree = groupBreakdown.find((e) => (e.amount_to_free_delivery ?? 0) > 0)?.amount_to_free_delivery
+                const thresholdMet = breakdownThresholdMet || (group.threshold != null && !group.belowThreshold)
+                const amountToFree = breakdownAmountToFree ?? group.amountToFreeDelivery ?? 0
+                const showBelowThreshold = !thresholdMet && (amountToFree > 0 || group.belowThreshold)
                 const thresholdUnavailable = (group as { thresholdUnavailable?: boolean }).thresholdUnavailable === true
                 const hasWeightCost = weightBasedEntry && (weightBasedEntry.total_weight_kg ?? 0) > 0 && (weightBasedEntry.delivery_cost ?? 0) > 0
                 const showGroupHeader = group.isImport || deliveryCost > 0 || showBelowThreshold || hasWeightCost
                 const headerLabel = deliveryCost > 0
-                  ? `We have a flat delivery rate for these products (R${deliveryCost.toFixed(2)})`
+                  ? `Our supplier has a flat delivery rate for these products (R${deliveryCost.toFixed(2)})`
                   : 'This delivery group has a free-delivery threshold'
 
                 return (
@@ -399,7 +389,7 @@ export default function CartPage() {
                       ) : (
                         <>
                           <h3 className="cart-supplier-header">{headerLabel}</h3>
-                          {showBelowThreshold && (
+                          {showBelowThreshold && group.threshold != null && (
                             <>
                               {thresholdUnavailable ? (
                                 <p className="supplier-threshold-note text-amber-700">
@@ -417,7 +407,7 @@ export default function CartPage() {
                           )}
                           {deliveryCost > 0 && group.slug !== OTHER_GROUP && !showBelowThreshold && (
                             <Link href={getDeliveryGroupUrl(group.slug)} className="supplier-group-link">
-                              Browse more products in this delivery group
+                              Browse more products from this supplier
                             </Link>
                           )}
                         </>

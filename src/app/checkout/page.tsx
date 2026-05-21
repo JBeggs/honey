@@ -9,7 +9,7 @@ import { useToast } from '@/contexts/ToastContext'
 import { Cart, CartItem, SupplierDeliveryBreakdownItem, type GumtreeFulfillmentMethod } from '@/lib/types'
 import { ArrowLeft, CreditCard, Truck, Shield, Lock, MapPin, Package } from 'lucide-react'
 import { getCartItemImages, isCourierGuyCartItem, normalizeCartResponse } from '@/lib/cart-utils'
-import { getProductBundleImages } from '@/lib/image-utils'
+import { getProductCardImages } from '@/lib/image-utils'
 import { PudoLocationSelector, type PudoLocation } from '@/components/checkout/PudoLocationSelector'
 
 type DeliveryMethod = 'standard' | 'express' | 'pudo'
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
               if (!productId) return item
               const productResponse = await ecommerceApi.products.get(String(productId)) as { data?: unknown }
               const product = productResponse?.data ?? productResponse
-              const images = getProductBundleImages(product as Parameters<typeof getProductBundleImages>[0])
+              const images = getProductCardImages(product as Parameters<typeof getProductCardImages>[0])
               if (images.length > 0) {
                 return { ...item, bundle_images: images }
               }
@@ -924,10 +924,10 @@ export default function CheckoutPage() {
                       {belowThresholdGroups.map((group) => (
                         <div key={`${group.supplier_slug}-threshold`} className="py-1">
                           <p>
-                            Add <strong>R{Number(group.amount_to_free_delivery || 0).toFixed(2)}</strong> more to unlock free delivery for this delivery group.
+                            Add <strong>R{Number(group.amount_to_free_delivery || 0).toFixed(2)}</strong> more from this supplier to unlock free delivery.
                           </p>
                           <Link href={`/products?supplier_slug=${encodeURIComponent(group.supplier_slug)}`} className="text-vintage-primary hover:underline">
-                            Browse products in this delivery group
+                            Browse this supplier&apos;s products
                           </Link>
                         </div>
                       ))}
